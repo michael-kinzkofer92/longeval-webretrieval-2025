@@ -14,6 +14,10 @@ Each model should return ranked document lists (in TREC format) for given querie
 ---
 
 ## Local Setup
+### Environment Info
+- Python: 3.10
+- Java: 21 (required by Pyserini & Lucene)
+
 
 ### 1. Python version
 
