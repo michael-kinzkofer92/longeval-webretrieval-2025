@@ -110,3 +110,36 @@ python -m pyserini.index.lucene \
 --threads 2 \
 --storePositions --storeDocvectors --storeRaw
 ```
+
+---
+
+### Retrieval (BM25 Search)
+
+To retrieve documents for a set of queries using the BM25 index:
+
+1. **Ensure your queries are saved in** ```data/queries.tsv``` **in the format:**
+
+```
+    001	tourisme en Normandie
+    002	plages du débarquement
+```
+
+2. **Run the retrieval script:**
+
+```bash
+  python scripts/search.py
+```
+
+This script loads your queries.tsv, retrieves the top documents from the index using BM25, and writes the result to ```runs/run_bm25.txt``` in TREC format:
+
+```
+<query_id> Q0 <doc_id> <rank> <score> bm25-baseline
+```
+
+Example output:
+
+```
+001 Q0 1 1 1.5621 bm25-baseline
+002 Q0 2 1 1.6039 bm25-baseline
+```
+
