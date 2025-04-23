@@ -22,14 +22,14 @@ Ensure you have **Python 3.10** installed.
 ### 2. Create a virtual environment
 
 ```bash
-python3 -m venv .venv
-source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+  python3 -m venv .venv
+  source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 ```
 
 
 ### 3. Install dependencies
 ```bash
-pip install -r requirements.txt
+  pip install -r requirements.txt
 ```
 
 ## Downloading the Dataset
@@ -44,3 +44,35 @@ Visit the official dataset [page](https://researchdata.tuwien.ac.at/records/th5h
 
 Move the downloaded .zip files to the following folder in this project: ```longeval-webretrieval-2025/data/raw```
 <br>⚠️ Note: Full dataset files are very large (~37 GB each). Be prepared for long downloads.
+
+## Indexing (BM25 Baseline)
+
+To build a Lucene BM25 index from the JSONL-formatted document corpus:
+
+### Input format:
+
+Each line in ```data/corpus/corpus.jsonl``` must be a valid JSON object:
+
+    {"id": "doc1", "contents": "Le tourisme en Normandie est très populaire."}
+
+### Build the index:
+
+Run the script below to build the index with Pyserini via subprocess:
+
+```bash
+  python scripts/build_index.py
+```
+
+This will index all documents under ```data/corpus/``` and store the Lucene index under ```index/bm25/```.
+
+The script internally calls:
+
+```
+python -m pyserini.index.lucene \
+--collection JsonCollection \
+--input data/corpus \
+--index index/bm25 \
+--generator DefaultLuceneDocumentGenerator \
+--threads 2 \
+--storePositions --storeDocvectors --storeRaw
+```
