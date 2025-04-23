@@ -113,7 +113,7 @@ python -m pyserini.index.lucene \
 
 ---
 
-### Retrieval (BM25 Search)
+## Retrieval (BM25 Search)
 
 To retrieve documents for a set of queries using the BM25 index:
 
