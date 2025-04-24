@@ -1,0 +1,4 @@
+pyserini
+pytrec_eval
+pandas
+requests
