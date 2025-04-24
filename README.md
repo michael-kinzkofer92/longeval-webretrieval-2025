@@ -139,8 +139,8 @@ This script loads your queries.tsv, retrieves the top documents from the index u
 Example output:
 
 ```
-001 Q0 1 1 1.5621 bm25-baseline
-002 Q0 2 1 1.6039 bm25-baseline
+001 Q0 DOC001 1 1.5621 bm25-baseline
+002 Q0 DOC002 1 1.6039 bm25-baseline
 ```
 
 ---
