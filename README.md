@@ -28,11 +28,11 @@ Each model should return ranked document lists (in TREC format) for given querie
 │   └── run_bm25.txt         # Sample BM25 run file
 ├── scripts/
 │   ├── build_index.py       # Index creation script (BM25)
-│   ├── search.py            # (Planned) BM25 retrieval script
-│   └── evaluate.py          # (Planned) Evaluation with pytrec_eval
+│   ├── search.py            # BM25 retrieval script
+│   └── evaluate.py          # Evaluation with pytrec_eval
 ├── systems/
 │   ├── README.txt           # Overview of system structure
-│   └── bm25_baseline/       # BM25 system configuration and notes
+│   └── baseline/            # Example system folder
 ├── requirements.txt         # Python dependencies
 ├── .gitignore               # Files and folders excluded from Git
 └── README.md                # Project documentation
@@ -143,3 +143,26 @@ Example output:
 002 Q0 2 1 1.6039 bm25-baseline
 ```
 
+---
+## Evaluation
+The script ```scripts/evaluate.py``` evaluates a run file **(TREC format)** against a qrels file using **nDCG@10**, powered by **pytrec_eval**.
+
+### Usage
+```bash
+  python scripts/evaluate.py --qrels qrels/pseudo-qrels.txt --run runs/run_bm25.txt
+```
+
+| Argument |             Description              |
+|--|:------------------------------------:|
+| --qrels | Path to the qrels file (TREC format) |
+| --run |  Path to the run file (TREC format)  |
+
+Example output:
+
+```plaintext
+001: nDCG@10 = 0.7602
+002: nDCG@10 = 1.0000
+
+Average nDCG@10 = 0.8801
+```
+&nbsp;
