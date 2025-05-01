@@ -11,12 +11,12 @@ data:
   data_dir: ./data/release_2025_june_subset/French/  #DONE
   train_collection: LongEval Train Collection   #DONE
   qrels_dir: qrels/
-  queries_file: queries.txt
+  queries_file: queries.trec #DONE
 
 bm25:
-  k1: 1.2
-  b: 0.75
-  top_k: 1000
+  k1: 1.2  #DONE
+  b: 0.75  #DONE
+  top_k: 100  #DONE
   index_dir: ./index/bm25/   #DONE
 
 evaluation:
