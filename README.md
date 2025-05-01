@@ -137,11 +137,16 @@ You can later switch to the full dataset by modifying the paths there.
 
 To build a Lucene BM25 index from the JSONL-formatted document corpus:
 
-### Input format:
+**Input format:**  
+The folder `data/release_2025_june_subset/French/LongEval Train Collection/Json/2022-06_fr` must contain the JSON files.
 
-Each line in ```data/corpus/corpus.jsonl``` must be a valid JSON object:
-
-    {"id": "doc1", "contents": "Le tourisme en Normandie est très populaire."}
+Example document (`.json` file):
+```json
+{
+  "id": "doc1",
+  "contents": "Le tourisme en Normandie est très populaire."
+}
+```
 
 ### Build the index:
 
@@ -151,21 +156,26 @@ Run the script below to build the index with Pyserini via subprocess:
   python scripts/build_index.py
 ```
 
-This will index all documents under ```data/corpus/``` and store the Lucene index under ```index/bm25/```.
+This will index all documents under:
+```
+data/release_2025_june_subset/French/LongEval Train Collection/Json/2022-06_fr/
+```
+and store the Lucene index under:
+```
+index/bm25/
+```
 
 The script internally calls:
 
-```
+``` 
 python -m pyserini.index.lucene \
 --collection JsonCollection \
---input data/corpus \
+--input data/release_2025_june_subset/French/LongEval Train Collection/Json/2022-06_fr \
 --index index/bm25 \
 --generator DefaultLuceneDocumentGenerator \
 --threads 2 \
 --storePositions --storeDocvectors --storeRaw
 ```
-
----
 
 ## Retrieval (BM25 Search)
 
