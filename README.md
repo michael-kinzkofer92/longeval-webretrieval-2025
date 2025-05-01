@@ -198,8 +198,8 @@ This script loads your queries.tsv, retrieves the top documents from the index u
 Example output:
 
 ```
-001 Q0 doc377243 4 3.4752 bm25-baseline
-001 Q0 doc637084 5 3.4740 bm25-baseline
+1 Q0 377243 4 3.4752 bm25-baseline
+1 Q0 637084 5 3.4740 bm25-baseline
 ```
 
 ---
@@ -208,7 +208,7 @@ The script ```scripts/evaluate.py``` evaluates a run file **(TREC format)** agai
 
 ### Usage
 ```bash
-  python scripts/evaluate.py --qrels qrels/pseudo-qrels.txt --run runs/run_bm25.txt
+    python scripts/evaluate.py --qrels data/release_2025_june_subset/French/LongEval\ Train\ Collection/qrels/2022-06_fr/qrels_processed.txt --run runs/run_bm25.txt
 ```
 
 | Argument |             Description              |
