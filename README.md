@@ -181,12 +181,7 @@ python -m pyserini.index.lucene \
 
 To retrieve documents for a set of queries using the BM25 index:
 
-1. **Ensure your queries are saved in** ```data/queries.tsv``` **in the format:**
-
-```
-    001	tourisme en Normandie
-    002	plages du débarquement
-```
+1. **Ensure your queries are saved in** ```data/release_2025_june_subset/French/queries.trec```
 
 2. **Run the retrieval script:**
 
@@ -203,8 +198,8 @@ This script loads your queries.tsv, retrieves the top documents from the index u
 Example output:
 
 ```
-001 Q0 DOC001 1 1.5621 bm25-baseline
-002 Q0 DOC002 1 1.6039 bm25-baseline
+001 Q0 doc377243 4 3.4752 bm25-baseline
+001 Q0 doc637084 5 3.4740 bm25-baseline
 ```
 
 ---

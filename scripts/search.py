@@ -44,7 +44,7 @@ os.makedirs(os.path.dirname(RUN_FILE), exist_ok=True)
 # Write results in TREC format
 with open(RUN_FILE, 'w') as f_out:
     for _, row in queries_df.iterrows():
-        qid, query = str(row.qid), row.query
+        qid, query = str(row.qid).zfill(3), row.query
         hits = searcher.search(query, k=top_k)
         for rank, hit in enumerate(hits):
             f_out.write(f"{qid} Q0 {hit.docid} {rank + 1} {hit.score:.4f} {RUN_ID}\n")
