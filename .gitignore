@@ -179,3 +179,8 @@ cython_debug/
 
 # Lucene-Index
 index/
+
+# Ignore all contents in these dataset folders
+data/release_2025/*
+data/release_2025_june_subset/*
+

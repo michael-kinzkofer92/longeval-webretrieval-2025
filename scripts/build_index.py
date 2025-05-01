@@ -1,10 +1,21 @@
 import os
 import subprocess
+import yaml
 
-CORPUS_DIR = 'data/corpus'
-INDEX_DIR = 'index/bm25'
+config_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'config.yml')
 
-# Create an output directory if needed
+with open(config_path, 'r') as f:
+    config = yaml.safe_load(f)
+
+# Get paths from config
+CORPUS_DIR = os.path.join(
+    config['data']['data_dir'],
+    config['data']['train_collection'],
+    'Json/2022-06_fr'
+)
+INDEX_DIR = config['bm25']['index_dir']
+
+# Create output directory if needed
 os.makedirs(INDEX_DIR, exist_ok=True)
 
 # Build the command
