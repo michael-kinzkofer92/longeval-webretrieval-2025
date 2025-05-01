@@ -8,16 +8,16 @@ general:
   output_dir: ./runs/
 
 data:
-  data_dir: ./data/release_2025_june_subset/French/  #DONE
-  train_collection: LongEval Train Collection   #DONE
+  data_dir: ./data/release_2025_june_subset/French/
+  train_collection: LongEval Train Collection
   qrels_dir: qrels/
-  queries_file: queries.trec #DONE
+  queries_file: queries.trec
 
 bm25:
-  k1: 1.2  #DONE
-  b: 0.75  #DONE
-  top_k: 100  #DONE
-  index_dir: ./index/bm25/   #DONE
+  k1: 1.2
+  b: 0.75
+  top_k: 100
+  index_dir: ./index/bm25/
 
 evaluation:
   metrics: [nDCG@10, P@10, Relative_nDCG_Drop]

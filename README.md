@@ -32,6 +32,7 @@ Each model should return ranked document lists (in TREC format) for given querie
 │   └── run_bm25.txt         # Sample BM25 run file
 ├── scripts/
 │   ├── build_index.py       # Index creation script (BM25)
+│   ├── config.yml           # Configuration file for data paths, BM25 parameters, evaluation, etc.
 │   ├── search.py            # BM25 retrieval script
 │   └── evaluate.py          # Evaluation with pytrec_eval
 ├── systems/
