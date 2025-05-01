@@ -94,8 +94,9 @@ Move the downloaded .zip files to the following folder in this project: ```longe
 ### Option 2: Development Subset (used in this project)
 
 For development and testing purposes, this project uses a **subset of the full data**, limited to:
+- JSON documents for June 2022
 - TREC documents for June 2022
-- Qrels for June
+- Qrels for June 2022
 - `queries.trec`
 
 This subset should be extracted to: ```longeval-webretrieval-2025/data/release_2025_june_subset```

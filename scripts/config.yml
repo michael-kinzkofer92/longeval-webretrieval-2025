@@ -8,8 +8,8 @@ general:
   output_dir: ./runs/
 
 data:
-  data_dir: ./data/release_2025/French/
-  train_collection: LongEval\ Train\ Collection
+  data_dir: ./data/release_2025_june_subset/French/  #DONE
+  train_collection: LongEval Train Collection   #DONE
   qrels_dir: qrels/
   queries_file: queries.txt
 
@@ -17,7 +17,7 @@ bm25:
   k1: 1.2
   b: 0.75
   top_k: 1000
-  index_dir: ./index/bm25/
+  index_dir: ./index/bm25/   #DONE
 
 evaluation:
   metrics: [nDCG@10, P@10, Relative_nDCG_Drop]
