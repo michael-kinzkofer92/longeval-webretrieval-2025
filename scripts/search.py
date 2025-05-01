@@ -35,8 +35,9 @@ with open(QUERIES_FILE, 'r') as f:
             queries.append({'qid': qid, 'query': query})
 queries_df = pd.DataFrame(queries)
 
-# Limit to first 5 queries (for testing)
-queries_df = queries_df.head(5)
+# Limit to 1  querie (for testing)
+top_qids = ['16185']
+queries_df = queries_df[queries_df['qid'].isin(top_qids)]
 
 # Create runs/ if missing
 os.makedirs(os.path.dirname(RUN_FILE), exist_ok=True)
@@ -44,9 +45,12 @@ os.makedirs(os.path.dirname(RUN_FILE), exist_ok=True)
 # Write results in TREC format
 with open(RUN_FILE, 'w') as f_out:
     for _, row in queries_df.iterrows():
-        qid, query = str(row.qid).zfill(3), row.query
+        qid, query = str(row.qid), row.query
         hits = searcher.search(query, k=top_k)
+        print(f"Query {qid} → Top hits:", [hit.docid for hit in hits[:10]])
         for rank, hit in enumerate(hits):
-            f_out.write(f"{qid} Q0 {hit.docid} {rank + 1} {hit.score:.4f} {RUN_ID}\n")
+            docid_clean = hit.docid.replace('doc', '')
+            f_out.write(f"{qid} Q0 {docid_clean} {rank + 1} {hit.score:.4f} {RUN_ID}\n")
+
 
 print(f"✅ Test run written to {RUN_FILE}")
