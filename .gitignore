@@ -1,6 +1,11 @@
 # IntelliJ project files
 .idea/
 *.iml
+*.zip
+
+data/raw/*
+
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -181,6 +186,13 @@ cython_debug/
 index/
 
 # Ignore all contents in these dataset folders
+data/raw/*data/raw/*
 data/release_2025/*
 data/release_2025_june_subset/*
 
+#  keep folder structure but ignore contents
+!data/raw/.gitkeep
+!data/release_2025/.gitkeep
+!data/release_2025_june_subset/.gitkeep
+data/release_2025/*
+data/release_2025_june_subset/*
