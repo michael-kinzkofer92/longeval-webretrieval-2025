@@ -3,7 +3,7 @@
 set -e  # Stop on error
 
 # -------------------------------
-# Konfiguration
+# Configuration
 # -------------------------------
 DOWNLOAD_DIR="data/raw"
 EXTRACT_DIR="data/release_2025_june_subset"
@@ -15,7 +15,7 @@ URL_P1="https://researchdata.tuwien.ac.at/records/th5h0-g5f51/files/Longeval_202
 URL_P2="https://researchdata.tuwien.ac.at/records/th5h0-g5f51/files/Longeval_2025_Train_Collection_p2.zip?download=1&preview=1&token=eyJhbGciOiJIUzUxMiJ9.eyJpZCI6IjcwM2Y4MzQ0LTFlMDEtNDYxNy1iNDc4LTI5MmQ5MzYwNTU3NyIsImRhdGEiOnt9LCJyYW5kb20iOiI4NjYxMWFkODQzNDk2ZDk0NzllMDNlOWIyYWM1Zjc4NCJ9.YhnRV6WzWfQiuLQcGyTrA3gyI_5UBe9rtUAV6qKk5U7tqGEmD4NUdyfjGo2-U7tnBIlD7iTwUUDi0nw3GcXPmA"
 
 # -------------------------------
-# Prüfe curl
+# Check curl
 # -------------------------------
 if ! command -v curl >/dev/null 2>&1; then
     echo "❌ curl ist nicht installiert. Bitte zuerst installieren."
@@ -28,7 +28,7 @@ mkdir -p "$DOWNLOAD_DIR"
 mkdir -p "$EXTRACT_DIR"
 
 # -------------------------------
-# ZIP 1: p1 herunterladen
+# ZIP 1: p1 download
 # -------------------------------
 if [ ! -f "$ZIP_P1" ]; then
     echo "⬇️ Lade p1.zip ..."
@@ -38,7 +38,7 @@ else
 fi
 
 # -------------------------------
-# ZIP 2: p2 herunterladen
+# ZIP 2: p2 download
 # -------------------------------
 if [ ! -f "$ZIP_P2" ]; then
     echo "⬇️ Lade p2.zip ..."
@@ -48,7 +48,7 @@ else
 fi
 
 # -------------------------------
-# Entpacken des Development Subset
+# Unpacking the development subset
 # -------------------------------
 echo "📂 Entpacke Juni-Subset aus p1.zip ..."
 unzip -n "$ZIP_P1" \
