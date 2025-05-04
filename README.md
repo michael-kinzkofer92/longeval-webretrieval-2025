@@ -134,6 +134,28 @@ You can later switch to the full dataset by modifying the paths there.
 
 ----
 
+### Option 3: Development Subset / full dataset on TU Hub and Local Indexing
+
+⚠️ Important: On the TU Hub, Java is **not** installed, so you cannot run the indexing and search scripts (`build_index.py`, `search.py`) there.  
+Instead, follow this workaround:
+
+
+#### On TU Hub:
+
+1. Run the script to download and extract the development subset / full dataset:
+   ```bash
+   get_dev_subset.sh
+   ```
+    ```bash
+   get_full_dataset.sh
+   ```
+2. Zip the extracted subset folder und download to your machine.
+
+#### On your local machine:
+Unzip the subset / full dataset, build the index, run the search.
+
+----
+
 ## Indexing (BM25 Baseline)
 
 To build a Lucene BM25 index from the JSONL-formatted document corpus:

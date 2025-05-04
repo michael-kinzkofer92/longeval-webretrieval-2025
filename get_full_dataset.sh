@@ -3,7 +3,7 @@
 set -e  # Stop on error
 
 # -------------------------------
-# Konfiguration
+# Configuration
 # -------------------------------
 DOWNLOAD_DIR="data/raw"
 EXTRACT_DIR="data/release_2025_full"
@@ -16,7 +16,7 @@ URL_P2="https://researchdata.tuwien.ac.at/records/th5h0-g5f51/files/Longeval_202
 
 
 # -------------------------------
-# curl prüfen
+# Check curl
 # -------------------------------
 if ! command -v curl >/dev/null 2>&1; then
     echo "❌ curl ist nicht installiert. Bitte zuerst installieren."
@@ -29,7 +29,7 @@ mkdir -p "$DOWNLOAD_DIR"
 mkdir -p "$EXTRACT_DIR"
 
 # -------------------------------
-# ZIP 1 herunterladen
+# ZIP 1 download
 # -------------------------------
 if [ ! -f "$ZIP_P1" ]; then
     echo "⬇️ Lade p1.zip ..."
@@ -39,7 +39,7 @@ else
 fi
 
 # -------------------------------
-# ZIP 2 herunterladen
+# ZIP 2 download
 # -------------------------------
 if [ ! -f "$ZIP_P2" ]; then
     echo "⬇️ Lade p2.zip ..."
@@ -49,7 +49,7 @@ else
 fi
 
 # -------------------------------
-# Vollständiges Entpacken
+# Unpacking the full dataset
 # -------------------------------
 echo "📂 Entpacke vollständige Inhalte aus p1.zip ..."
 unzip -n "$ZIP_P1" -d "$EXTRACT_DIR"
