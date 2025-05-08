@@ -16,7 +16,7 @@ RUN_ID = 'bm25-baseline'
 # BM25 parameters from config
 k1 = config['bm25'].get('k1', 0.9)
 b = config['bm25'].get('b', 0.4)
-top_k = config['bm25'].get('top_k', 1000)
+top_k = config['bm25'].get('top_k', 25)
 
 # Load searcher
 searcher = LuceneSearcher(INDEX_DIR)
@@ -36,8 +36,8 @@ with open(QUERIES_FILE, 'r') as f:
 queries_df = pd.DataFrame(queries)
 
 # Limit to 1  querie (for testing)
-top_qids = ['16185']
-queries_df = queries_df[queries_df['qid'].isin(top_qids)]
+#top_qids = ['16185']
+#queries_df = queries_df[queries_df['qid'].isin(top_qids)]
 
 # Create runs/ if missing
 os.makedirs(os.path.dirname(RUN_FILE), exist_ok=True)
@@ -49,7 +49,7 @@ with open(RUN_FILE, 'w') as f_out:
         hits = searcher.search(query, k=top_k)
         print(f"Query {qid} → Top hits:", [hit.docid for hit in hits[:10]])
         for rank, hit in enumerate(hits):
-            docid = hit.docid         
+            docid = hit.docid  
             f_out.write(f"{qid} Q0 {docid} {rank+1} {hit.score:.4f} {RUN_ID}\n")
 
 

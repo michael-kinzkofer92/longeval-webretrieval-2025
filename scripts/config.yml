@@ -16,7 +16,7 @@ data:
 bm25:
   k1: 1.2
   b: 0.75
-  top_k: 100
+  top_k: 25
   index_dir: ./index/bm25/
 
 evaluation:
