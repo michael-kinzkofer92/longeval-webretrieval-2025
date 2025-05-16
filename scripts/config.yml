@@ -10,7 +10,8 @@ general:
 data:
   data_dir: ./data/lag6_lag8_subset/French
   train_collection: LongEval Train Collection
-  qrels_dir: qrels/2022-11_fr
+  lag6_qrels_dir: qrels/2022-11_fr
+  lag8_qrels_dir: qrels/2023-01_fr
   queries_file: queries.trec
 
 bm25:

@@ -36,6 +36,15 @@ with open(QUERIES_FILE, 'r') as f:
 queries_df = pd.DataFrame(queries)
 
 # downsampling to 1000 queries for testing
+qrels_qids = set()
+
+QRELS_FILE = os.path.join(config['data']['data_dir'], 'LongEval Train Collection/qrels/2022-11_fr/qrels_processed.txt')
+with open(QRELS_FILE, 'r') as f:
+    for line in f:
+        qid, *_ = line.strip().split()
+        qrels_qids.add(qid)
+
+queries_df = queries_df[queries_df['qid'].isin(qrels_qids)]
 queries_df = queries_df.sample(n=1000, random_state=42)
 
 # Create runs/ if missing
@@ -48,8 +57,11 @@ with open(RUN_FILE, 'w') as f_out:
         hits = searcher.search(query, k=top_k)
         print(f"Query {qid} → Top hits:", [hit.docid for hit in hits[:10]])
         for rank, hit in enumerate(hits):
-            docid = hit.docid  
+            docid = hit.docid
+            if docid.startswith("doc"):
+                docid = docid[3:]  # strip "doc" prefix
             f_out.write(f"{qid} Q0 {docid} {rank+1} {hit.score:.4f} {RUN_ID}\n")
+
 
 
 print(f"✅ Test run written to {RUN_FILE}")
