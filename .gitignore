@@ -194,5 +194,3 @@ data/lag6_lag8_subset/*
 !data/raw/.gitkeep
 !data/release_2025/.gitkeep
 !data/lag6_lag8_subset/.gitkeep
-data/release_2025/*
-data/lag6_lag8_subset/*
