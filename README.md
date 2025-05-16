@@ -94,39 +94,46 @@ Move the downloaded .zip files to the following folder in this project: ```longe
 
 ### Option 2: Development Subset (used in this project)
 
-For development and testing purposes, this project uses a **subset of the full data**, limited to:
-- JSON documents for June 2022
-- TREC documents for June 2022
-- Qrels for June 2022
+For development and testing purposes, this project uses a **subset of the full data**, limited to lag6 (2022-11) and lag8 (2023-01).:
+- Lag6 (2022-11) JSON documents
+- Lag6 (2022-11) TREC documents
+- Lag6 (2022-11) Qrels
+- Lag8 (2023-01) Qrels
 - `queries.trec`
 
-This subset should be extracted to: ```longeval-webretrieval-2025/data/release_2025_june_subset```
+This subset should be extracted to: ```longeval-webretrieval-2025/data/lag6_lag8_subset/```
 
 Run this command inside the folder containing the downloaded ZIP files:
 
 ```bash
-# TREC + Qrels + Queries from p1
+#Lag6 (2022-11) TREC + Qrels + Queries from p1
 unzip Longeval_2025_Train_Collection_p1.zip \
 "*/French/LongEval Train Collection/Trec/2022-06_fr/*" \
 "*/French/LongEval Train Collection/qrels/2022-06_fr/qrels_processed.txt" \
 "*/French/queries.trec" \
--d data/release_2025_june_subset/
+-d data/lag6_lag8_subset/
 
-# JSON documents for June from p2
+#Lag8 (2023-01) Qrels from p1
+unzip Longeval_2025_Train_Collection_p1.zip \
+"*/French/LongEval Train Collection/qrels/2023-01_fr/qrels_processed.txt" \
+-d data/lag6_lag8_subset/
+
+#Lag6 (2022-11) JSON documents for June from p2
 unzip Longeval_2025_Train_Collection_p2.zip \
 "release_2025_p2/French/LongEval Train Collection/Json/2022-06_fr/*" \
--d data/release_2025_june_subset/
+-d data/lag6_lag8_subset/
 ```
 
 You should then have the following structure:
 
 ```plaintext
-data/release_2025_june_subset/
-└── French/
-    ├── LongEval Train Collection/
-    │   ├── Trec/2022-06_fr/
-    │   └── qrels/2022-06_fr/qrels_processed.txt
-    └── queries.trec
+data//lag6_lag8_subset/
+      └── French/
+          ├── LongEval Train Collection/
+          │   ├── Trec/2022-11_fr/
+          │   └── qrels/2022-11_fr/qrels_processed.txt
+          │   └── qrels/2023-01_fr/qrels_processed.txt
+          └── queries.trec
 ```
 
 This is the default configuration used in ```scripts/config.yaml.```
