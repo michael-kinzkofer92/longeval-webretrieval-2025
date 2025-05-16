@@ -171,7 +171,7 @@ Unzip the subset / full dataset, build the index, run the search.
 To build a Lucene BM25 index from the JSONL-formatted document corpus:
 
 **Input format:**  
-The folder `data/lag6_lag8_subset//French/LongEval Train Collection/Json/2022-11_fr` must contain the JSON files.
+The folder `data/lag6_lag8_subset/French/LongEval Train Collection/Json/2022-11_fr` must contain the JSON files.
 
 Example document (`.json` file):
 ```json
@@ -191,7 +191,7 @@ Run the script below to build the index with Pyserini via subprocess:
 
 This will index all documents under:
 ```
-data/lag6_lag8_subset//French/LongEval Train Collection/Json/2022-11_fr/
+data/lag6_lag8_subset/French/LongEval Train Collection/Json/2022-11_fr/
 ```
 and store the Lucene index under:
 ```
@@ -214,7 +214,7 @@ python -m pyserini.index.lucene \
 
 To retrieve documents for a set of queries using the BM25 index:
 
-1. **Ensure your queries are saved in** ```data/lag6_lag8_subset//French/queries.trec```
+1. **Ensure your queries are saved in** ```data/lag6_lag8_subset/French/queries.trec```
 
 2. **Run the retrieval script:**
 

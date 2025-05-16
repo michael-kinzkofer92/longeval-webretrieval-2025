@@ -8,7 +8,7 @@ with open(config_path, 'r') as f:
     config = yaml.safe_load(f)
 
 # Get paths from config
-CORPUS_DIR = "data/release_2025_june_subset/release_2025_p2/French/LongEval Train Collection/Json/2022-06_fr"
+CORPUS_DIR = "data/lag6_lag8_subset/French/LongEval Train Collection/Json/2022-11_fr"
 
 INDEX_DIR = config['bm25']['index_dir']
 
