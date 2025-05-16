@@ -60,7 +60,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Evaluate run file against qrels using nDCG@10")
     parser.add_argument("--qrels", required=True, help="Path to Qrels-file (TREC-Format)")
     parser.add_argument("--run", required=True, help="Path to Run-file (TREC-Format)")
-    parser.add_argument("--output", required=False, help="Optional path to output file")
+    parser.add_argument("--output", required=True, help="Optional path to output file")
 
     args = parser.parse_args()
     evaluate(args.qrels, args.run, args.output)

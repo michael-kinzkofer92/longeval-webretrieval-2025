@@ -239,20 +239,27 @@ Example output:
 ## Evaluation
 The script ```scripts/evaluate.py``` evaluates a run file **(TREC format)** against a qrels file using **nDCG@10**, powered by **pytrec_eval**.
 
-### Usage
+### 1. Evaluate the BM25 run file against the qrels files for lag6:
 ```bash
  python scripts/evaluate.py \
   --qrels data/lag6_lag8_subset/French/LongEval\ Train\ Collection/qrels/2022-11_fr/qrels_processed.txt \
   --run runs/run_bm25.txt \
   --output eval_results/eval_bm25_lag6.txt
+```
 
-
+### 2. Then evaluate the BM25 run file against the qrels files for lag6:
+```bash
+ python scripts/evaluate.py \
+  --qrels data/lag6_lag8_subset/French/LongEval\ Train\ Collection/qrels/2023-01_fr/qrels_processed.txt \
+  --run runs/run_bm25.txt \
+  --output eval_results/eval_bm25_lag8.txt
 ```
 
 | Argument |             Description              |
 |--|:------------------------------------:|
 | --qrels | Path to the qrels file (TREC format) |
 | --run |  Path to the run file (TREC format)  |
+| `--output`   | Optional: custom name for output evaluation file    |
 
 Example output:
 
