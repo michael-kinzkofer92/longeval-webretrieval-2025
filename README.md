@@ -262,7 +262,6 @@ The script ```scripts/evaluate.py``` evaluates a run file **(TREC format)** agai
 | `--output`   | Custom name for output evaluation file |
 
 Example output:
-
 ```plaintext
 001: nDCG@10 = 0.7602
 002: nDCG@10 = 1.0000
@@ -270,7 +269,24 @@ Example output:
 Average nDCG@10 = 0.8801
 ```
 &nbsp;
-After comparison:
+
+### 3. Then compare lag6 und lag8 (Relative nDCG@10 Drop):
+```bash
+python scripts/compare_eval.py \
+  --lag6 eval_results/eval_bm25_lag6.txt \
+  --lag8 eval_results/eval_bm25_lag8.txt \
+  --output eval_results/eval_bm25_drop.txt
+
+```
+
+| Argument     |             Description                                           |
+|--------------|--------------------------------------------------------------------|
+| `--lag6`     | Path to the Lag6 evaluation result file (output of evaluate.py)    |
+| `--lag8`     | Path to the Lag8 evaluation result file (output of evaluate.py)    |
+| `--output`   | Path to save the relative drop result file                         |
+
+
+Example output:
 ```plaintext
 Lag6 Average nDCG@10: 0.8801
 Lag8 Average nDCG@10: 0.7512
