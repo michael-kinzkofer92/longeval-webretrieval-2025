@@ -111,8 +111,8 @@ Run this command inside the folder containing the downloaded ZIP files:
 ```bash
 #Lag6 (2022-11) TREC + Qrels + Queries from p1
 unzip Longeval_2025_Train_Collection_p1.zip \
-"*/French/LongEval Train Collection/Trec/2022-06_fr/*" \
-"*/French/LongEval Train Collection/qrels/2022-06_fr/qrels_processed.txt" \
+"*/French/LongEval Train Collection/Trec/2022-11_fr/*" \
+"*/French/LongEval Train Collection/qrels/2022-11_fr/qrels_processed.txt" \
 "*/French/queries.trec" \
 -d data/lag6_lag8_subset/
 
@@ -123,7 +123,7 @@ unzip Longeval_2025_Train_Collection_p1.zip \
 
 #Lag6 (2022-11) JSON documents for June from p2
 unzip Longeval_2025_Train_Collection_p2.zip \
-"release_2025_p2/French/LongEval Train Collection/Json/2022-06_fr/*" \
+"release_2025_p2/French/LongEval Train Collection/Json/2022-11_fr/*" \
 -d data/lag6_lag8_subset/
 ```
 
