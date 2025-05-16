@@ -35,9 +35,8 @@ with open(QUERIES_FILE, 'r') as f:
             queries.append({'qid': qid, 'query': query})
 queries_df = pd.DataFrame(queries)
 
-# Limit to 1  querie (for testing)
-#top_qids = ['16185']
-#queries_df = queries_df[queries_df['qid'].isin(top_qids)]
+# downsampling to 1000 queries for testing
+queries_df = queries_df.sample(n=1000, random_state=42)
 
 # Create runs/ if missing
 os.makedirs(os.path.dirname(RUN_FILE), exist_ok=True)

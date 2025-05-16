@@ -8,7 +8,7 @@ general:
   output_dir: ./runs/
 
 data:
-  data_dir: ./data/release_2025_june_subset/release_2025_p1/French
+  data_dir: ./data/release_2025_june_subset/French
   train_collection: LongEval Train Collection
   qrels_dir: qrels/2022-06_fr
   queries_file: queries.trec
