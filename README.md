@@ -241,7 +241,12 @@ The script ```scripts/evaluate.py``` evaluates a run file **(TREC format)** agai
 
 ### Usage
 ```bash
-    python scripts/evaluate.py --qrels data/lag6_lag8_subset//French/LongEval\ Train\ Collection/qrels/2022-11_fr/qrels_processed.txt --run runs/run_bm25.txt
+ python scripts/evaluate.py \
+  --qrels data/lag6_lag8_subset/French/LongEval\ Train\ Collection/qrels/2022-11_fr/qrels_processed.txt \
+  --run runs/run_bm25.txt \
+  --output eval_results/eval_bm25_lag6.txt
+
+
 ```
 
 | Argument |             Description              |
