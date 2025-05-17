@@ -192,6 +192,7 @@ index/
 # Ignore all contents in these dataset folders
 data/raw/*data/raw/*
 data/release_2025/*
+data/release_2025_june_subset/*
 data/lag6_lag8_subset/*
 
 #  keep folder structure but ignore contents
