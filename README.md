@@ -34,6 +34,18 @@ Each model should return ranked document lists (in TREC format) for given querie
 ├── runs/                    # Output result files in TREC format
 │   └── run_bm25.txt         # Sample BM25 run file
 ├── scripts/
+Custom index builder implemented in JAVA
+├── IndexBuilderApp/
+│   └── src/
+│       └── main/
+│           └── java/
+│               └── org/
+│                   └── air2025/
+│                       └── IndexBuilder.java       # Java source code
+│   └── pom.xml                                     # Maven configuratiojn
+│   └── IndexBuilderApp-1.0-jar-with-dependencies   # Java executable
+└── target/
+    └── index-builder-1.0-jar-with-dependencies.jar
 │   ├── build_index.py       # Index creation script (BM25)
 │   ├── config.yml           # Configuration file for data paths, BM25 parameters, evaluation, etc.
 │   ├── search.py            # BM25 retrieval script
@@ -166,9 +178,54 @@ Unzip the subset / full dataset, build the index, run the search.
 
 ----
 
-## Indexing (BM25 Baseline)
-
+## Indexing via Java
+This is the recommended solution for (re) building the index.
 To build a Lucene BM25 index from the JSONL-formatted document corpus:
+
+**Input format:**  
+The folder specified as an input must contain the JSON files.
+
+Example document (`.json` file):
+```json
+{
+  "id": "doc1",
+  "contents": "Le tourisme en Normandie est très populaire."
+}
+```
+
+**Configuration**
+The JAVA code uses FrenchAnalyzer from the org.apache.lucene.analysis.fr module.
+
+**Dependencies**
+All neccessary dependencies and configurations to build the script is stated in the pom.xml
+
+### Build the index:
+Either use the pre-built .jar with exactly two CLI arguments:
+
+```bash
+  java -jar scripts/IndexBuilderApp/IndexBuilderApp-1.0-jar-with-dependencies.jar "input/example json collection/" "/output/example/index/"
+```
+
+Or build it with maven, and then run it.
+
+This will index all documents under:
+```
+input/example json collection/
+```
+and store the Lucene index under:
+```
+/output/example/index/
+```
+
+The index is now ready to use from Pyserini.
+
+
+## Indexing via Python
+
+Disclaimer: this script cannot be tuned and configured for the French data documents
+It uses StandardAnalyzer & English stopwords
+
+To build with this script a Lucene BM25 index from the JSONL-formatted document corpus:
 
 **Input format:**  
 The folder `data/lag6_lag8_subset/French/LongEval Train Collection/Json/2022-11_fr` must contain the JSON files.

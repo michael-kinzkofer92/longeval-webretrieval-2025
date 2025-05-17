@@ -1,3 +1,7 @@
+#  keep index builder java executable
+*.jar
+!scripts/**/*.jar
+
 # IntelliJ project files
 .idea/
 *.iml
@@ -194,3 +198,7 @@ data/lag6_lag8_subset/*
 !data/raw/.gitkeep
 !data/release_2025/.gitkeep
 !data/lag6_lag8_subset/.gitkeep
+
+### Mac OS ###
+.DS_Store
+
