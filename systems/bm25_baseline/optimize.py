@@ -8,7 +8,7 @@ script_path = os.path.dirname(os.path.abspath(__file__))
 project_path = os.path.dirname(os.path.dirname(script_path))
 
 # Load configuration
-config_path = os.path.join(script_path, 'bm25_conf.yaml')
+config_path = os.path.join(script_path, 'optimization_config.yaml')
 with open(config_path, 'r') as f:
     config = yaml.safe_load(f)
 
@@ -20,9 +20,9 @@ RUN_FILE = str(os.path.join(project_path, config['general']['output_dir'], 'run_
 # BM25 parameters from config
 
 # Controls term frequency scaling
-k1_range = config['bm25']['k1 range']
+k1_range = config['bm25']['k1 range'].split(",")
 # Controls document length normalization
-b_range = config['bm25']['b range']
+b_range = config['bm25']['b range'].split(",")
 # Controls how many documents are returned for each query
 top_k = config['bm25'].get('top_k', 25)
 
@@ -43,6 +43,7 @@ index = 0
 for k in k1_range:
     for b in b_range:
         # Search
+        print(f"BM25 with parameters k = {k} b = {b} has started...")
         BM25.run_search(k1=k, b=b, top_k=top_k)
 
         # File name and parameters map
@@ -55,10 +56,13 @@ for k in k1_range:
                                                eval_path, 
                                                "--qrels", qrels_path, 
                                                "--run", run_path, 
-                                               "--output", os.path.join(results_path, "result1")])
-        break
+                                               "--output", os.path.join(results_path, file_name)])
+        print(f"Current search and eval ended.")
+        
 
 # Compare eval results & try to find the best combination
+# TODO implement best config and best result loading from YAML
+# TODO overwrite them only if better is found
 best_result = 0.0
 best_config = None
 for file_name in evaluation_config_map:
@@ -74,6 +78,7 @@ for file_name in evaluation_config_map:
 if best_config is not None:
     config["optimization"]["optimized k"] = best_config["k"]
     config["optimization"]["optimized b"] = best_config["b"]
+    config["optimization"]["best_result"] = best_result
 
 with open(config_path, "w") as yaml_config:
     yaml.dump(config, yaml_config)

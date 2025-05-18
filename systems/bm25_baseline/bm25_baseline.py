@@ -51,7 +51,6 @@ class BM25Baseline:
             for _, row in queries_df.iterrows():
                 qid, query = str(row.qid), row.query
                 hits = searcher.search(query, k=top_k)
-                print(f"Query {qid} → Top hits:", [hit.docid for hit in hits[:10]])
                 for rank, hit in enumerate(hits):
                     docid = hit.docid
                     f_out.write(f"{qid} Q0 {docid} {rank+1} {hit.score:.4f} {self.run_id}\n")
