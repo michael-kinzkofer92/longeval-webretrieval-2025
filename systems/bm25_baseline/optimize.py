@@ -44,7 +44,7 @@ for k in k1_range:
     for b in b_range:
         # Search
         print(f"BM25 with parameters k = {k} b = {b} has started...")
-        BM25.run_search(k1=k, b=b, top_k=top_k)
+        #BM25.run_search(k1=k, b=b, top_k=top_k)
 
         # File name and parameters map
         file_name = f"opt_{index}.txt"
@@ -58,12 +58,11 @@ for k in k1_range:
                                                "--run", run_path, 
                                                "--output", os.path.join(results_path, file_name)])
         print(f"Current search and eval ended.")
+        break
         
 
 # Compare eval results & try to find the best combination
-# TODO implement best config and best result loading from YAML
-# TODO overwrite them only if better is found
-best_result = 0.0
+best_result = config["optimization"].get("best_result", 0.0)
 best_config = None
 for file_name in evaluation_config_map:
     with open(os.path.join(results_path, file_name), "r") as file:
@@ -74,11 +73,15 @@ for file_name in evaluation_config_map:
                     best_result = float(average_line[1])
                     best_config = evaluation_config_map[file_name]
 
-# Save best parameter to config
+# Save best parameter to config if new value was found
 if best_config is not None:
+    print("Saving optimized parameters to config...")
     config["optimization"]["optimized k"] = best_config["k"]
     config["optimization"]["optimized b"] = best_config["b"]
     config["optimization"]["best_result"] = best_result
 
-with open(config_path, "w") as yaml_config:
-    yaml.dump(config, yaml_config)
+    with open(config_path, "w") as yaml_config:
+        yaml.dump(config, yaml_config)
+
+else:
+    print("The optimization process did not found better parameters.")
