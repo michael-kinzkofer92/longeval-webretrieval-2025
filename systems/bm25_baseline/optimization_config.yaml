@@ -1,0 +1,20 @@
+bm25:
+  b range: 0.4, 0.6, 0.75, 0.9
+  index_dir: data/index
+  k1 range: 0.9, 1.2, 1.5, 2.0
+  top_k: 25
+data:
+  data_dir: data/release_2025_june_subset/release_2025_p1/French
+  qrels_dir: qrels/2022-06_fr
+  queries_file: queries.trec
+general:
+  output_dir: ./runs/
+optimization:
+  best_result: 0.0586
+  evaluate path: scripts/evaluate.py
+  optimized b: '0.9'
+  optimized k: '2.0'
+  qrels path: data/release_2025_june_subset/release_2025_p1/French/LongEval Train
+    Collection/qrels/2022-06_fr/qrels_processed.txt
+  results path: systems/bm25_baseline/evaluations
+  run path: runs/run_bm25.txt

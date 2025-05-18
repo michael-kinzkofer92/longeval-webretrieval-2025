@@ -51,8 +51,12 @@ Custom index builder implemented in JAVA
 │   ├── search.py            # BM25 retrieval script
 │   └── evaluate.py          # Evaluation with pytrec_eval
 ├── systems/
-│   ├── README.txt           # Overview of system structure
-│   └── baseline/            # Example system folder
+│   ├── README.MD            # Overview of system structure
+│   └── bm_25_baseline/      # Baseline model with optimization
+│       └── evaluations/             # Eval files are not stored only folder
+│       └── bm_25_baseline.py        # BM25 implementation as a Python class  
+│       └── optimization_config.yaml # Config file for optimization
+│       └── optimize.py              # Script for optimizing BM25 parameters    
 ├── requirements.txt         # Python dependencies
 ├── .gitignore               # Files and folders excluded from Git
 └── README.md                # Project documentation
@@ -350,3 +354,35 @@ Lag8 Average nDCG@10: 0.7512
 Relative nDCG@10 Drop: 14.65%
 ```
 &nbsp;
+
+## BM25 Baseline plus traditional model optimization 
+The script ```systems/bm25_baseline/optimize.py``` is aimed at optimizing the parameters of a BM25 model to establish a strong baseline retrieval performance. It is using the ```scripts/evaluate.py``` functionality to evaluate run files **(TREC format)** against a qrels file using **nDCG@10**, powered by **pytrec_eval**.
+
+The script systematically evaluates combinations of BM25 hyperparameters (`k1`, `b`) by:
+
+1. Performing document retrieval using `BM25`.
+2. Evaluating each retrieval run using a separate evaluation script.
+3. Selecting the best-performing configuration based on average evaluation metrics.
+4. Updating the YAML configuration file with the best parameters found.
+
+### Configuration
+This YAML file holds key configuration parameters:  ```systems/bm25_baseline/optimization_config.yaml``` such as paths, k and b value intervals to walk through (```k1 range```, ```b range```), the best result achieved so far (```best_result```), and the exact k (```optimized k```) and b (```optimized b```) value that was used in the retrieval.
+
+### Running the script
+Active your virtual environment and run:
+
+```bash
+python systems/bm25_baseline/optimize.py
+```
+
+Make sure that the paths (define them relative to project) and the parameters in the YAML config are correctly set.
+
+### Output
+Ranked documents saved to: 
+
+```runs/run_bm25.txt``` (only the latest one is saved)
+
+Evaluation results per parameter combination: 
+```systems/bm25_baseline/evaluations/```
+
+Best config will be stored in: ```optimization_config.yaml```
