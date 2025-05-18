@@ -16,4 +16,13 @@ bm25:
   k1 range: 0.9, 1.2, 1.5, 2.0
   b range: 0.4, 0.6, 0.75, 0.9
   top_k: 25
-  index_dir: index
+  index_dir: data/index
+
+optimization:
+# optimize.py saves the optimized values here at every run
+  run path: runs/run_bm25.txt
+  qrels path: data/release_2025_june_subset/release_2025_p1/French/LongEval Train Collection/qrels/2022-06_fr/qrels_processed.txt
+  evaluate path: scripts/evaluate.py
+  results path: systems/bm25_baseline/evaluations
+  optimized k: 0
+  optimized b: 0

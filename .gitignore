@@ -203,3 +203,4 @@ data/lag6_lag8_subset/*
 ### Mac OS ###
 .DS_Store
 
+/systems/bm25_baseline/evaluations
