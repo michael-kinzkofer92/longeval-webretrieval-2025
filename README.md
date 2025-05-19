@@ -201,18 +201,28 @@ Example document (`.json` file):
 The JAVA code uses FrenchAnalyzer from the org.apache.lucene.analysis.fr module.
 
 **Dependencies**
-All neccessary dependencies and configurations to build the script is stated in the pom.xml
+All neccessary dependencies and configurations to build the script is stated in the ```pom.xml```.
 
 ### Build the index:
-Either use the pre-built .jar with exactly two CLI arguments:
+You can decide to use the in-built stopword list (optimized for the French language) or specify a custom list via a file like ```scripts/IndexBuilderApp/example_custom_stopword_list.txt``` -> words are just defined one after each other per line. 
 
+The custom stopword list file's path should be defined as the third CLI argument, but it is optional! Without the third argument the program will use the in-built list.
+
+To build the index either use the pre-built .jar with two / three CLI arguments:
+
+#### Custom stopword list defined
 ```bash
-  java -jar scripts/IndexBuilderApp/IndexBuilderApp-1.0-jar-with-dependencies.jar "input/example json collection/" "/output/example/index/"
+java -jar scripts/IndexBuilderApp/IndexBuilderApp-1.1-jar-with-dependencies.jar "input/example json collection/" "/output/example/index/" "/path/example/custom_stopword_list.txt"
+```
+
+#### Without custom stopword list
+```bash
+java -jar scripts/IndexBuilderApp/IndexBuilderApp-1.1-jar-with-dependencies.jar "input/example json collection/" "/output/example/index/"
 ```
 
 Or build it with maven, and then run it.
 
-This will index all documents under:
+The program will index all documents under:
 ```
 input/example json collection/
 ```
