@@ -44,7 +44,7 @@ for k in k1_range:
     for b in b_range:
         # Search
         print(f"BM25 with parameters k = {k} b = {b} has started...")
-        #BM25.run_search(k1=k, b=b, top_k=top_k)
+        BM25.run_search(k1=k, b=b, top_k=top_k)
 
         # File name and parameters map
         file_name = f"opt_{index}.txt"
@@ -58,7 +58,6 @@ for k in k1_range:
                                                "--run", run_path, 
                                                "--output", os.path.join(results_path, file_name)])
         print(f"Current search and eval ended.")
-        break
         
 
 # Compare eval results & try to find the best combination
