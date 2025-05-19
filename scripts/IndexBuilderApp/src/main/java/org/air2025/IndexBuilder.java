@@ -1,6 +1,9 @@
 package org.air2025;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import org.apache.lucene.analysis.CharArraySet;
+import org.apache.lucene.analysis.WordlistLoader;
 import org.apache.lucene.analysis.fr.FrenchAnalyzer;
 import org.apache.lucene.document.*;
 import org.apache.lucene.index.IndexWriter;
@@ -10,10 +13,13 @@ import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.BytesRef;
 
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Iterator;
 import java.util.stream.Stream;
 
 public class IndexBuilder {
@@ -30,7 +36,25 @@ public class IndexBuilder {
          */
         public static void buildIndex(String inputFilePath, String outputFilePath, String customStopWordListPath) throws IOException {
             Directory dir = FSDirectory.open(Paths.get(outputFilePath));
-            FrenchAnalyzer analyzer = new FrenchAnalyzer();
+            FrenchAnalyzer analyzer = null;
+            if(customStopWordListPath != null){
+                try{
+                    CharArraySet stopwords = WordlistLoader.getWordSet(
+                        new FileReader(Path.of(customStopWordListPath).toFile()));
+                    analyzer = new FrenchAnalyzer(stopwords);
+                }
+                catch(Exception exception){
+                    System.out.println("Custom stopword list could not be loaded because of the following exception:" 
+                    + exception.getMessage() +"The in-built list will be used!");
+                    analyzer = new FrenchAnalyzer();
+                }
+
+            }
+            else{
+                analyzer = new FrenchAnalyzer();
+            }
+
+
 
             IndexWriterConfig config = new IndexWriterConfig(analyzer);
             config.setOpenMode(IndexWriterConfig.OpenMode.CREATE);
@@ -71,8 +95,8 @@ public class IndexBuilder {
         }
     }
     public static void main(String[] args) {
-        if (args.length != 2) {
-            System.err.println("Usage: java IndexBuilderApp <input_json_path> <output_index_path>. Remember to specify absolute paths!");
+        if (args.length > 3 || args.length < 2) {
+            System.err.println("Usage: java IndexBuilder <input_json_path> <output_index_path> (optional) <custom_stopword_list_file_path> Remember to specify absolute paths!");
             System.exit(1);
         }
 
@@ -92,9 +116,19 @@ public class IndexBuilder {
             }
         }
 
+        // Check custom stopwords file (if specified)
+        String stopWordListPath = null;
+        if (args.length == 3){
+            stopWordListPath = args[2];
+            if (!Files.exists(Paths.get(stopWordListPath))){
+                System.err.println("File with custom stopword list does not exist: " + inputDataPath + ". The in-built list will be used.");
+                System.exit(1);
+            }
+        }
+
         // Now the indexing part
         try{
-            FrenchJsonLuceneIndexer.buildIndex(inputDataPath, outputIndexPath, null);
+            FrenchJsonLuceneIndexer.buildIndex(inputDataPath, outputIndexPath, stopWordListPath);
             System.out.println("Index built successfully!");
         }
         catch(Exception e) {
