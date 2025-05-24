@@ -56,6 +56,3 @@ class BM25Baseline:
                     f_out.write(f"{qid} Q0 {docid} {rank+1} {hit.score:.4f} {self.run_id}\n")
 
         print(f"✅ Test run written to {self.run_file_path}")
-
-
-

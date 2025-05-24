@@ -1,0 +1,9 @@
+name: pyserini
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - openjdk=11
+  - pip
+  - pip:
+      - pyserini

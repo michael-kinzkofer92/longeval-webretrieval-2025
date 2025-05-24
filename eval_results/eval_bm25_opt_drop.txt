@@ -1,0 +1,3 @@
+Lag6 Average nDCG@10: 0.0340
+Lag8 Average nDCG@10: 0.0303
+Relative nDCG@10 Drop: 10.88%
