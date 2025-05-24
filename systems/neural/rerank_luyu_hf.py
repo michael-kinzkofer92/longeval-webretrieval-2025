@@ -26,13 +26,11 @@ cfg      = yaml.safe_load(CFG_PATH.read_text())
 DATA_DIR   = Path(cfg["data"]["data_dir"])
 OUTPUT_DIR = Path(cfg["general"]["output_dir"])
 
-DOCUMENT_DIR = Path(
-    "data/release_2025_june_subset/release_2025_p1/"
-    "French/LongEval Train Collection/Trec/2022-06_fr"
-)
+DOCUMENT_DIR = Path("data/lag6_lag8_subset/release_2025_p1/French/LongEval Train Collection/Trec/2022-11_fr")
 
-BM25_RUN   = OUTPUT_DIR / "run_bm25.txt"
-OUT_FILE   = OUTPUT_DIR / "run_neural_luyu.txt"
+
+BM25_RUN = Path("runs/run_bm25.txt")
+OUT_FILE = Path("runs/run_neural_luyu_opt_2.txt")
 
 MODEL_NAME = "cross-encoder/ms-marco-MiniLM-L-6-v2"   # frei verfügbar
 TOP_K      = 25
@@ -59,7 +57,7 @@ def load_run(path: Path, k: int = TOP_K) -> Dict[str, List[str]]:
             run[qid].append(docid.strip())
     return run
 
-def parse_queries(trec: Path) -> Dict[str, str]:
+def parse_queries_trec(trec: Path) -> Dict[str, str]:
     mapping, qid = {}, None
     for ln in trec.read_text(encoding="utf-8").splitlines():
         if ln.startswith("<num>"):
@@ -125,8 +123,8 @@ def main() -> None:
     bm25   = load_run(BM25_RUN)
     needed = {d for lst in bm25.values() for d in lst}
     docs   = load_docs(DOCUMENT_DIR, needed)
-    queries= parse_queries(DATA_DIR / cfg["data"]["queries_file"])
-
+    queries = parse_queries_trec( Path("data/lag6_lag8_subset/release_2025_p1/French/queries.trec")
+    )
     print(f"⏳ loading {MODEL_NAME} on {DEVICE} …")
     tok = AutoTokenizer.from_pretrained(MODEL_NAME, use_fast=True)
     model = (

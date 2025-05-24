@@ -35,7 +35,7 @@ DOCUMENT_DIR = Path(
 )
 
 BM25_RUN_FILE  = OUTPUT_DIR / "run_bm25.txt"
-OUTPUT_RUNFILE = OUTPUT_DIR / "run_neural_monoT5.txt"
+OUTPUT_RUNFILE = OUTPUT_DIR / "run_neural_monoT5_2.txt"
 
 MODEL_NAME = "castorini/monot5-base-msmarco-10k"   # distilled 110 M
 DEVICE     = (
@@ -140,7 +140,7 @@ def rerank(
                 logits = model(**enc).logits
         
             logits = logits[:, 1] if logits.size(-1) > 1 else logits.squeeze(-1)
-            scores.extend(logits.cpu().float().tolist())x
+            scores.extend(logits.cpu().float().tolist())
 
 
     return scores
@@ -154,7 +154,7 @@ def main() -> None:
     print(f"🗂️  documents to load: {len(needed_ids):,}")
 
     corpus  = collect_needed_texts(DOCUMENT_DIR, needed_ids)
-    queries = parse_queries_trec(DATA_DIR / cfg["data"]["queries_file"])
+    queries = parse_queries_trec(Path("data/lag6_lag8_subset/release_2025_p1/French/queries.trec"))
 
     print(f"⏳ Loading model {MODEL_NAME} on {DEVICE} …")
     tokenizer = T5Tokenizer.from_pretrained(MODEL_NAME, use_fast=True)
