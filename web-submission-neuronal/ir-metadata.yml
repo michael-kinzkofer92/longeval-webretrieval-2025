@@ -10,49 +10,33 @@
 #
 # See https://www.ir-metadata.org for more details.
 
-tag: bm25-baseline+traditional
+tag: bm25+luyu+neuronal
 
 actor:
-  # The name of the team
   team: air5
 
-# Please provide a short description of your system.
 research goal:
   description: |
-    Evaluate the temporal robustness of IR models on dynamic French web collections
-    as part of the LongEval Task 1 – WebRetrieval (CLEF 2025). We implemented:
-      - a traditional BM25 model (baseline),
-      - a dense retrieval model using multilingual SBERT,
-      - a neural re-ranking pipeline (Luyu / monoT5).
+    Improve initial BM25 retrieval results using a neural re-ranking strategy.
+    This system uses a lightweight cross-encoder (Luyu) to rerank top-k BM25 results, 
+    and evaluates performance stability across lags in the LongEval WebRetrieval setting.
 
 platform:
   software:
-    # Which software and tools did you use for training, tunning and running your system?
-    # You can maintain the software that you used manually.
-    # Alternatively, you can use repro_eval or the tirex_tracker to track this.
     libraries:
-      - Pyserini (BM25 indexing & retrieval)
-      - Apache Lucene (custom Java indexer with FrenchAnalyzer)
-      - HuggingFace Transformers (neural reranking)
-      - FAISS (dense index)
-      - pytrec_eval (evaluation)
+      - HuggingFace Transformers
+      - pytrec_eval
       - Python 3.10
-      - Java 17
 
 implementation:
   source:
-    # Please provide a reference to your code if possible.
-    # If you can not share your code, you can delete the implementation section.
-    # The repro_eval and/or tirex_tracker tools can track this automatically, including commits, branches, etc.
     repository: https://github.com/michael-kinzkofer92/longeval-webretrieval-2025
 
 data:
-  # Please describe which training data your system used, e.g., longeval-sci, longeval-web, MS MARCO, etc.
   training data:
     - name: longeval-web
 
 method:
-  # Boolean value indicating if it is a automatic (true) or manual (false) run
   automatic: true
 
   indexing:
@@ -61,25 +45,14 @@ method:
     stopwords: stopwords-fr.txt + train24-top125-nominmaxlen.txt
 
   retrieval:
-    - # Which ranking approach do you use? E.g., bm25
-      name: bm25 + luyu (cross-encoder)
+    - name: bm25 + luyu (cross-encoder)
 
       ##################################################
       # Yes/No Questions
       ##################################################
 
-      # Did you use any statistical ranking model? (yes/no)
       lexical: yes
-
-      # Did you use any deep neural network model? (yes/no)
       deep_neural_model: yes
-
-      # Did you use a sparse neural model? (yes/no):
       sparse_neural_model: no
-
-      # Did you use a dense neural model? (yes/no):
       dense_neural_model: no
-
-      # Did you use more than a single retrieval model? (yes/no):
-      single_stage_retrieval: yes
-
+      single_stage_retrieval: no
