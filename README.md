@@ -411,7 +411,7 @@ If your submission folder (e.g., web-submission-traditional/) contains 2023-03 t
 
 | Option        | Meaning                                                        |
 | ------------- | -------------------------------------------------------------- |
-| `--dataset`   | ID of the official evaluation dataset (Lag6 & Lag8 test set)   |
+| `--dataset`   | ID of the official evaluation dataset (keep it as it is)       |
 | `--directory` | Folder that contains your submission (TIRA skeleton structure) |
 | `--dry-run`   | Just check if the folder is valid – no real upload             |
 
