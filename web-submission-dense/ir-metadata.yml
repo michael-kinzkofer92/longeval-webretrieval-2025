@@ -10,20 +10,20 @@
 #
 # See https://www.ir-metadata.org for more details.
 
-tag: ENTER_VALUE_HERE
+tag: bm25-baseline+traditional
 
 actor:
   # The name of the team
-  team: ENTER_VALUE_HERE
+  team: air5
 
 # Please provide a short description of your system.
 research goal:
   description: |
-    ENTER_VALUE_HERE
-    ...
-    This is a multi line string
-    ...
-    ENTER_VALUE_HERE
+    Evaluate the temporal robustness of IR models on dynamic French web collections
+    as part of the LongEval Task 1 – WebRetrieval (CLEF 2025). We implemented:
+      - a traditional BM25 model (baseline),
+      - a dense retrieval model using multilingual SBERT,
+      - a neural re-ranking pipeline (Luyu / monoT5).
 
 platform:
   software:
@@ -31,51 +31,55 @@ platform:
     # You can maintain the software that you used manually.
     # Alternatively, you can use repro_eval or the tirex_tracker to track this.
     libraries:
-      - ENTER_VALUE_HERE
-      - ENTER_VALUE_HERE
+      - Pyserini (BM25 indexing & retrieval)
+      - Apache Lucene (custom Java indexer with FrenchAnalyzer)
+      - HuggingFace Transformers (neural reranking)
+      - FAISS (dense index)
+      - pytrec_eval (evaluation)
+      - Python 3.10
+      - Java 17
 
 implementation:
   source:
     # Please provide a reference to your code if possible.
     # If you can not share your code, you can delete the implementation section.
     # The repro_eval and/or tirex_tracker tools can track this automatically, including commits, branches, etc.
-    repository: ENTER_VALUE_HERE
+    repository: https://github.com/michael-kinzkofer92/longeval-webretrieval-2025
 
 data:
   # Please describe which training data your system used, e.g., longeval-sci, longeval-web, MS MARCO, etc.
   training data:
-    - name: longeval-sci
-    - name: ENTER_VALUE_HERE
+    - name: longeval-web
 
 method:
   # Boolean value indicating if it is a automatic (true) or manual (false) run
-  automatic: ENTER_VALUE_HERE
+  automatic: true
 
   indexing:
-    tokenizer: ENTER_VALUE_HERE
-    stemmer: ENTER_VALUE_HERE
-    stopwords: ENTER_VALUE_HERE
+    tokenizer: StandardTokenizer
+    stemmer: FrenchLightStemmer
+    stopwords: stopwords-fr.txt + train24-top125-nominmaxlen.txt
 
   retrieval:
     - # Which ranking approach do you use? E.g., bm25
-      name: ENTER_VALUE_HERE
+      name: bm25 + luyu (cross-encoder)
 
       ##################################################
       # Yes/No Questions
       ##################################################
 
       # Did you use any statistical ranking model? (yes/no)
-      lexical: ENTER_VALUE_HERE
+      lexical: yes
 
       # Did you use any deep neural network model? (yes/no)
-      deep_neural_model: ENTER_VALUE_HERE
+      deep_neural_model: yes
 
       # Did you use a sparse neural model? (yes/no):
-      sparse_neural_model: ENTER_VALUE_HERE
+      sparse_neural_model: no
 
       # Did you use a dense neural model? (yes/no):
-      dense_neural_model: ENTER_VALUE_HERE
+      dense_neural_model: no
 
       # Did you use more than a single retrieval model? (yes/no):
-      single_stage_retrieval: ENTER_VALUE_HERE
+      single_stage_retrieval: yes
 
