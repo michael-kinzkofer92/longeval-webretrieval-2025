@@ -18,6 +18,20 @@ class BM25Baseline:
         self.run_file_path = run_file_path
 
     def parse_queries(self) -> pd.DataFrame:
+        # Parse queries file
+        queries = []
+
+        with open(self.queries_file_path, 'r') as f:
+            qid, query = None, None
+            for line in f:
+                split = line.strip().split("	")
+                qid = split[0]
+                query = split[1]
+                queries.append({'qid': qid, 'query': query})
+
+        return pd.DataFrame(queries)
+
+    def parse_queries_trec(self) -> pd.DataFrame:
         # Parse queries.trec manually
         queries = []
 
@@ -34,11 +48,14 @@ class BM25Baseline:
 
         return pd.DataFrame(queries)
 
-    def run_search(self, k1, b, top_k):
+    def run_search(self, k1, b, top_k, trec = True):
         # Load searcher
         searcher = LuceneSearcher(self.index_path)
 
-        queries_df = self.parse_queries()
+        if trec:
+            queries_df = self.parse_queries_trec()
+        else:
+            queries_df = self.parse_queries()
 
         # Set BM25 parameters (if not set, they stay at k1 = 0.9, b = 0.4)
         searcher.set_bm25(k1=k1, b=b)
