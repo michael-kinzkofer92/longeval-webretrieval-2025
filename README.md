@@ -396,3 +396,39 @@ Evaluation results per parameter combination:
 ```systems/bm25_baseline/evaluations/```
 
 Best config will be stored in: ```optimization_config.yaml```
+
+## Submission Verification
+### Validate your submission folder structure
+
+If your submission folder (e.g., web-submission-traditional/) contains 2023-03 to 2023-08 folders (each with a single run.txt.gz file) and an ir-metadata.yml, you can run:
+
+```bash
+ tira-cli upload \
+  --dataset web-20250430-test \
+  --directory web-submission-traditional \
+  --dry-run
+```
+
+| Option        | Meaning                                                        |
+| ------------- | -------------------------------------------------------------- |
+| `--dataset`   | ID of the official evaluation dataset (keep it as it is)       |
+| `--directory` | Folder that contains your submission (TIRA skeleton structure) |
+| `--dry-run`   | Just check if the folder is valid – no real upload             |
+
+
+If everything is correct, you will see a message like:
+
+```plaintext   
+✓ The run in subdirectory 2023-03 is valid.
+✓ The run in subdirectory 2023-04 is valid.
+...
+✓ The file ir-metadata.yml is valid.
+```
+
+### If you want to upload your submission, remove the `--dry-run` option:
+
+```bash
+ tira-cli upload \
+  --dataset web-20250430-test \
+  --directory web-submission-traditional
+```
