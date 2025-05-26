@@ -1,0 +1,11 @@
+faiss-cpu
+sentence-transformers
+scikit-learn
+tqdm
+pyyaml
+pyserini
+pytrec_eval
+torch>=2.2.1
+transformers>=4.41.0
+numpy
+tf-keras

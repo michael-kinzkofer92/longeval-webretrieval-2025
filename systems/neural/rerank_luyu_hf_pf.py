@@ -30,7 +30,7 @@ DOCUMENT_DIR = Path("data/lag6_lag8_subset/release_2025_p1/French/LongEval Train
 
 
 BM25_RUN = Path("runs/run_bm25.txt")
-OUT_FILE = Path("runs/run_neural_luyu_opt_4.txt")
+OUT_FILE = Path("runs/run_neural_luyu_prompt_clarity.txt")
 
 MODEL_NAME = "cross-encoder/ms-marco-MiniLM-L-6-v2"   # frei verfügbar
 TOP_K      = 25
@@ -98,13 +98,13 @@ def rerank(model, tok, query: str, docs: List[str]) -> List[float]:
     for i in range(0, len(docs), BATCH_SIZE):
         batch = docs[i:i+BATCH_SIZE]
         enc = tok(
-            [f"Query: {query} Document: {d}" for d in batch],
+            [f"How relevant is the following document to the query?\nQuery: {query}\nDocument: {d}" for d in batch],
             padding = True,
             truncation = True,
             max_length = 256,
             return_tensors = "pt"
         ).to(DEVICE)
-
+    
         with torch.no_grad():
             if USE_FP16:
                 with torch.autocast("cuda", dtype=torch.float16):
