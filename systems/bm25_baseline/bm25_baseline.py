@@ -68,8 +68,16 @@ class BM25Baseline:
             for _, row in queries_df.iterrows():
                 qid, query = str(row.qid), row.query
                 hits = searcher.search(query, k=top_k)
-                for rank, hit in enumerate(hits):
-                    docid = hit.docid
-                    f_out.write(f"{qid} Q0 {docid} {rank+1} {hit.score:.4f} {self.run_id}\n")
 
-        print(f"✅ Test run written to {self.run_file_path}")
+                seen_docids = set()
+                rank = 1
+
+                for hit in hits:
+                    docid = hit.docid
+                    if docid in seen_docids:
+                        continue  # skip duplicates
+                    seen_docids.add(docid)
+                    f_out.write(f"{qid} Q0 {docid} {rank} {hit.score:.4f} {self.run_id}\n")
+                    rank += 1
+
+        print(f"✅ TREC run written to {self.run_file_path}")
