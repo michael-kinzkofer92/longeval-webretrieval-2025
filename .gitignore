@@ -205,3 +205,4 @@ data/lag6_lag8_subset/*
 
 /systems/bm25_baseline/evaluations
 /.vscode
+embeddings/
