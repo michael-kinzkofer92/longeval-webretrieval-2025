@@ -10,7 +10,7 @@
 #
 # See https://www.ir-metadata.org for more details.
 
-tag: bm25-baseline+traditional
+tag: dense-baseline+multilingual
 
 actor:
   # The name of the team
@@ -19,19 +19,21 @@ actor:
 # Please provide a short description of your system.
 research goal:
   description: |
-    Evaluate the temporal robustness of a traditional IR system using BM25 on French web data.
-    This system serves as a lexical baseline using a custom Lucene index with French-specific 
-    preprocessing. It is evaluated across multiple lags (e.g., Lag6 and Lag8) to assess retrieval 
-    stability over time.
+    Evaluate the temporal robustness of a dense retrieval system using SBERT on French web data.
+    This system serves as a multilingual dense baseline using a SentenceTransformer model
+    (distiluse-base-multilingual-cased-v1). FAISS was used for efficient approximate nearest neighbor
+    search. Evaluated across multiple LAGs (e.g., 2023-03 to 2023-08) to assess stability over time.
+
 
 platform:
   software:
     libraries:
-      - Pyserini (BM25 indexing & retrieval)
-      - Apache Lucene (custom Java indexer with FrenchAnalyzer)
+      - sentence-transformers (SBERT embedding)
+      - faiss (dense vector indexing & retrieval)
+      - scikit-learn (PCA for dimensionality reduction)
       - pytrec_eval (evaluation)
-      - Python 3.10
-      - Java 17
+      - Python 3.11
+      - CUDA 12.4
 
 implementation:
   source:
@@ -45,19 +47,21 @@ method:
   automatic: true
 
   indexing:
-    tokenizer: StandardTokenizer
-    stemmer: FrenchLightStemmer
-    stopwords: stopwords-fr.txt + train24-top125-nominmaxlen.txt
+    tokenizer: default SBERT tokenizer
+    stemmer: none
+    stopwords: none
+    dimensionality reduction: PCA to 128 dims
 
   retrieval:
-    - name: bm25
+    - name: dense
+
 
       ##################################################
       # Yes/No Questions
       ##################################################
 
-      lexical: yes
-      deep_neural_model: no
+      lexical: no
+      deep_neural_model: yes
       sparse_neural_model: no
-      dense_neural_model: no
+      dense_neural_model: yes
       single_stage_retrieval: yes
