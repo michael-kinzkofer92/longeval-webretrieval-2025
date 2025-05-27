@@ -207,3 +207,10 @@ data/lag6_lag8_subset/*
 /.vscode
 embeddings/
 faiss_indices/
+data/2023_03_index/
+data/2023_04_index/
+data/2023_05_index/
+data/2023_06_index/
+data/2023_07_index/
+data/2023_08_index/
+data/test/
